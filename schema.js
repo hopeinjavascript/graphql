@@ -7,17 +7,21 @@ export const typeDefs = `#graphql
         title: String!
         colors: [String!]!
         sizes: [Int!]!
+        reviews: [Review!]
     }
     type Review {
         id: ID!
         rating: Int!
         title: String
         content: String!
+        product: Product!
+        author: Author!
     }
     type Author {
         id: ID!
         name: String!
         isAdmin: Boolean!
+        reviews : [Review!]
     }
     type Query {
         products: [Product]
@@ -51,6 +55,25 @@ export const resolvers = {
     },
     author(parent, args, ctx) {
       return db.authors.find((author) => author.id === args.id);
+    },
+  },
+
+  Product: {
+    reviews(parent) {
+      return db.reviews.filter((review) => review.product_id === parent.id);
+    },
+  },
+  Review: {
+    author(parent) {
+      return db.authors.find((author) => author.id === parent.author_id);
+    },
+    product(parent) {
+      return db.products.find((product) => product.id === parent.product_id);
+    },
+  },
+  Author: {
+    reviews(parent) {
+      return db.reviews.filter((review) => review.author_id === parent.id);
     },
   },
 };
