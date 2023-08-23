@@ -1,9 +1,34 @@
 let products = [
-  { id: '1', title: 'Zelda, Tears of the Kingdom', colors: ['Red'] },
-  { id: '2', title: 'Final Fantasy 7 Remake', colors: ['Yellow', 'Blue'] },
-  { id: '3', title: 'Elden Ring', colors: ['Yellow', 'Blue', 'Green'] },
-  { id: '4', title: 'Mario Kart', colors: ['Red'] },
-  { id: '5', title: 'Pokemon Scarlet', colors: ['Yellow', 'Blue', 'Green'] },
+  {
+    id: '1',
+    title: 'Zelda, Tears of the Kingdom',
+    colors: ['Red'],
+    sizes: [36, 38, 40, 42, 44, 46],
+  },
+  {
+    id: '2',
+    title: 'Final Fantasy 7 Remake',
+    colors: ['Yellow', 'Blue'],
+    sizes: [36, 38, 40, 42, 44, 46],
+  },
+  {
+    id: '3',
+    title: 'Elden Ring',
+    colors: ['Yellow', 'Blue', 'Green'],
+    sizes: [36, 38, 40, 42, 44, 46],
+  },
+  {
+    id: '4',
+    title: 'Mario Kart',
+    colors: ['Red'],
+    sizes: [36, 38, 40, 42, 44, 46],
+  },
+  {
+    id: '5',
+    title: 'Pokemon Scarlet',
+    colors: ['Yellow', 'Blue', 'Green'],
+    sizes: [36, 38, 40, 42, 44, 46],
+  },
 ];
 
 let authors = [

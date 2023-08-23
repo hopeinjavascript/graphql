@@ -21,8 +21,11 @@ export const typeDefs = `#graphql
     }
     type Query {
         products: [Product]
+        product(id: ID!): Product
         reviews: [Review]
+        review(id: ID!): Review
         authors: [Author]
+        author(id: ID!): Author
     }
 `;
 
@@ -38,6 +41,16 @@ export const resolvers = {
     },
     authors() {
       return db.authors;
+    },
+    // resolve function take 3 parameters -> parents(to work with related data), args (get hold of query variables), context
+    product(parent, args, ctx) {
+      return db.products.find((product) => product.id === args.id);
+    },
+    review(parent, args, ctx) {
+      return db.reviews.find((review) => review.id === args.id);
+    },
+    author(parent, args, ctx) {
+      return db.authors.find((author) => author.id === args.id);
     },
   },
 };
