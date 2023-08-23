@@ -33,6 +33,12 @@ export const typeDefs = `#graphql
     }
     type Mutation {
         deleteProduct(id: ID!): [Product]
+        addProduct(product: AddProductInput!): Product
+    }
+    input AddProductInput {
+        title: String!
+        colors: [String!]!
+        sizes: [Int!]!
     }
 `;
 
@@ -85,6 +91,19 @@ export const resolvers = {
     deleteProduct(_, args) {
       db.products = db.products.filter((product) => product.id !== args.id);
       return db.products;
+    },
+    addProduct(_, args) {
+      const newProduct = {
+        id: Date.now(),
+        // ...args.product OR
+        title: args.product.title,
+        colors: args.product.colors,
+        sizes: args.product.sizes,
+      };
+
+      db.products.push(newProduct);
+
+      return newProduct;
     },
   },
 };
