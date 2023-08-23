@@ -31,6 +31,9 @@ export const typeDefs = `#graphql
         authors: [Author]
         author(id: ID!): Author
     }
+    type Mutation {
+        deleteProduct(id: ID!): [Product]
+    }
 `;
 
 // resolvers are functions
@@ -74,6 +77,14 @@ export const resolvers = {
   Author: {
     reviews(parent) {
       return db.reviews.filter((review) => review.author_id === parent.id);
+    },
+  },
+
+  // mutations
+  Mutation: {
+    deleteProduct(_, args) {
+      db.products = db.products.filter((product) => product.id !== args.id);
+      return db.products;
     },
   },
 };
