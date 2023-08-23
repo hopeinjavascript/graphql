@@ -34,11 +34,17 @@ export const typeDefs = `#graphql
     type Mutation {
         deleteProduct(id: ID!): [Product]
         addProduct(product: AddProductInput!): Product
+        updateProduct(id: ID!, update: UpdateProductInput!): Product
     }
     input AddProductInput {
         title: String!
         colors: [String!]!
         sizes: [Int!]!
+    }
+    input UpdateProductInput {
+        title: String
+        colors: [String!]
+        sizes: [Int!]
     }
 `;
 
@@ -94,7 +100,7 @@ export const resolvers = {
     },
     addProduct(_, args) {
       const newProduct = {
-        id: Date.now(),
+        id: Date.now().toString(), // converting it to string because ID datatype in GraphQL is string
         // ...args.product OR
         title: args.product.title,
         colors: args.product.colors,
@@ -104,6 +110,23 @@ export const resolvers = {
       db.products.push(newProduct);
 
       return newProduct;
+    },
+    updateProduct(_, args) {
+      //   console.log(args);
+      db.products = db.products.map((product) => {
+        if (product.id === args.id) {
+          return {
+            ...product,
+            ...args.update,
+          };
+        }
+        return product;
+      });
+
+      return db.products.find((product) => {
+        console.log(product.id, args.id, product.id === args.id);
+        return product.id === args.id;
+      });
     },
   },
 };
